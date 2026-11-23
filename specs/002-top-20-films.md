@@ -54,6 +54,35 @@
 
 Пользователь оценил 24 фильма. В разделе показываются только первые 20 фильмов по правилам сортировки; остальные фильмы остаются в коллекции со своими оценками.
 
+### Пример заполненного топ-20 с постерами
+
+Ниже приведён демонстрационный набор по снимку рейтинга IMDb Top 250 от 22 ноября 2026 года. Исходная оценка IMDb указана для справки, а в интерфейсе проекта она показана по шкале от 1 до 5 звёзд с округлением исходной оценки, делённой на два. Порядок и значения со временем могут измениться.
+
+| Место | Постер | Фильм | IMDb | Оценка в проекте |
+| ---: | :---: | --- | :---: | :---: |
+| 1 | <img src="https://image.tmdb.org/t/p/w185/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg" alt="Постер фильма «Побег из Шоушенка»" width="64"> | Побег из Шоушенка (1994) | 9,3 | `★★★★★` |
+| 2 | <img src="https://image.tmdb.org/t/p/w185/3bhkrj58Vtu7enYsRolD1fZdja1.jpg" alt="Постер фильма «Крёстный отец»" width="64"> | Крёстный отец (1972) | 9,2 | `★★★★★` |
+| 3 | <img src="https://image.tmdb.org/t/p/w185/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="Постер фильма «Тёмный рыцарь»" width="64"> | Тёмный рыцарь (2008) | 9,1 | `★★★★★` |
+| 4 | <img src="https://image.tmdb.org/t/p/w185/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg" alt="Постер фильма «Властелин колец: Возвращение короля»" width="64"> | Властелин колец: Возвращение короля (2003) | 9,0 | `★★★★★` |
+| 5 | <img src="https://image.tmdb.org/t/p/w185/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg" alt="Постер фильма «Список Шиндлера»" width="64"> | Список Шиндлера (1993) | 9,0 | `★★★★★` |
+| 6 | <img src="https://image.tmdb.org/t/p/w185/hek3koDUyRQk7FIhPXsa6mT2Zc3.jpg" alt="Постер фильма «Крёстный отец 2»" width="64"> | Крёстный отец 2 (1974) | 9,0 | `★★★★★` |
+| 7 | <img src="https://image.tmdb.org/t/p/w185/ow3wq89wM8qd5X7hWKxiRfsFf9C.jpg" alt="Постер фильма «12 разгневанных мужчин»" width="64"> | 12 разгневанных мужчин (1957) | 9,0 | `★★★★★` |
+| 8 | <img src="https://image.tmdb.org/t/p/w185/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg" alt="Постер фильма «Властелин колец: Братство Кольца»" width="64"> | Властелин колец: Братство Кольца (2001) | 8,9 | `★★★★` |
+| 9 | <img src="https://image.tmdb.org/t/p/w185/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg" alt="Постер фильма «Начало»" width="64"> | Начало (2010) | 8,8 | `★★★★` |
+| 10 | <img src="https://image.tmdb.org/t/p/w185/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg" alt="Постер фильма «Бойцовский клуб»" width="64"> | Бойцовский клуб (1999) | 8,8 | `★★★★` |
+| 11 | <img src="https://image.tmdb.org/t/p/w185/saHP97rTPS5eLmrLQEcANmKrsFl.jpg" alt="Постер фильма «Форрест Гамп»" width="64"> | Форрест Гамп (1994) | 8,8 | `★★★★` |
+| 12 | <img src="https://image.tmdb.org/t/p/w185/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg" alt="Постер фильма «Криминальное чтиво»" width="64"> | Криминальное чтиво (1994) | 8,8 | `★★★★` |
+| 13 | <img src="https://image.tmdb.org/t/p/w185/5VTN0pR8gcqV3EPUHHfMGnJYN9L.jpg" alt="Постер фильма «Властелин колец: Две крепости»" width="64"> | Властелин колец: Две крепости (2002) | 8,8 | `★★★★` |
+| 14 | <img src="https://image.tmdb.org/t/p/w185/bX2xnavhMYjWDoZp1VM6VnU1xwe.jpg" alt="Постер фильма «Хороший, плохой, злой»" width="64"> | Хороший, плохой, злой (1966) | 8,8 | `★★★★` |
+| 15 | <img src="https://image.tmdb.org/t/p/w185/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" alt="Постер фильма «Интерстеллар»" width="64"> | Интерстеллар (2014) | 8,7 | `★★★★` |
+| 16 | <img src="https://image.tmdb.org/t/p/w185/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg" alt="Постер фильма «Матрица»" width="64"> | Матрица (1999) | 8,7 | `★★★★` |
+| 17 | <img src="https://image.tmdb.org/t/p/w185/2l05cFWJacyIsTpsqSgH0wQXe4V.jpg" alt="Постер фильма «Звёздные войны: Империя наносит ответный удар»" width="64"> | Звёздные войны: Империя наносит ответный удар (1980) | 8,7 | `★★★★` |
+| 18 | <img src="https://image.tmdb.org/t/p/w185/aKuFiU82s5ISJpGZp7YkIr3kCUd.jpg" alt="Постер фильма «Славные парни»" width="64"> | Славные парни (1990) | 8,7 | `★★★★` |
+| 19 | <img src="https://image.tmdb.org/t/p/w185/6yoghtyTpznpBik8EngEmJskVUO.jpg" alt="Постер фильма «Семь»" width="64"> | Семь (1995) | 8,6 | `★★★★` |
+| 20 | <img src="https://image.tmdb.org/t/p/w185/uS9m8OBk1A8eM9I042bx8XXpqAq.jpg" alt="Постер фильма «Молчание ягнят»" width="64"> | Молчание ягнят (1991) | 8,6 | `★★★★` |
+
+Источник оценок и порядка: [IMDb Top 250](https://www.imdb.com/chart/top/) и [снимок данных за 22 ноября 2026 года](https://4kmonitor.org/en/imdb-top-250). Постеры нужны только для наглядности примера в спецификации и не задают обязательный набор фильмов для пользователя.
+
 ## Ограничения
 
 - Допустимы только целые оценки: 1, 2, 3, 4 или 5.
