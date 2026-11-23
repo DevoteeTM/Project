@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Личная коллекция фильмов и сериалов со статусами просмотра"
+    />
+    <title>Фильм на потом</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Фильм на потом — на главную">
+        <span class="brand__mark" aria-hidden="true">▶</span>
+        <span>Фильм на потом</span>
+      </a>
+      <button class="button button--primary" id="open-form" type="button">
+        <span aria-hidden="true">＋</span>
+        Добавить
+      </button>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow">Личная коллекция</p>
+        <h1 id="page-title">Фильм на потом</h1>
+        <p class="hero__copy">
+          Сохраняйте фильмы и сериалы, которые не хочется потерять.
+        </p>
+      </section>
+
+      <section aria-labelledby="collection-title">
+        <div class="section-heading">
+          <h2 id="collection-title">Моя коллекция</h2>
+          <p id="items-count" aria-live="polite">0 записей</p>
+        </div>
+
+        <div class="collection-toolbar" id="collection-toolbar" hidden>
+          <label class="filter-control" for="genre-filter">
+            <span>Фильтр по жанру</span>
+            <select id="genre-filter">
+              <option value="">Все жанры</option>
+              <option value="Боевик">Боевик</option>
+              <option value="Комедия">Комедия</option>
+              <option value="Драма">Драма</option>
+              <option value="Фантастика">Фантастика</option>
+              <option value="Ужасы">Ужасы</option>
+              <option value="Триллер">Триллер</option>
+              <option value="Приключения">Приключения</option>
+              <option value="Детектив">Детектив</option>
+              <option value="Мелодрама">Мелодрама</option>
+              <option value="Фэнтези">Фэнтези</option>
+              <option value="Мультфильм">Мультфильм</option>
+              <option value="Документальный">Документальный</option>
+              <option value="Криминал">Криминал</option>
+              <option value="Военный">Военный</option>
+              <option value="Исторический">Исторический</option>
+              <option value="Другое">Другое</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="empty-state" id="empty-state">
+          <div class="empty-state__icon" aria-hidden="true">✦</div>
+          <h3 id="empty-title">Пока здесь пусто</h3>
+          <p id="empty-copy">Добавьте первый фильм или сериал — он появится в вашей коллекции.</p>
+          <button class="button button--secondary" id="empty-add" type="button">
+            Добавить запись
+          </button>
+        </div>
+
+        <div class="cards" id="cards" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <dialog class="dialog" id="add-dialog" aria-labelledby="dialog-title">
+      <form class="movie-form" id="movie-form" novalidate>
+        <div class="dialog__header">
+          <div>
+            <p class="eyebrow" id="dialog-eyebrow">Новая запись</p>
+            <h2 id="dialog-title">Добавить в коллекцию</h2>
+          </div>
+          <button class="icon-button" id="close-form" type="button" aria-label="Закрыть форму">
+            ×
+          </button>
+        </div>
+
+        <div class="form-grid">
+          <fieldset class="field field--full segmented-field">
+            <legend>Тип записи</legend>
+            <div class="segmented-control">
+              <label>
+                <input type="radio" name="type" value="Фильм" checked />
+                <span>Фильм</span>
+              </label>
+              <label>
+                <input type="radio" name="type" value="Сериал" />
+                <span>Сериал</span>
+              </label>
+            </div>
+            <p class="field__error" data-error-for="type"></p>
+          </fieldset>
+
+          <label class="field field--full" for="title">
+            <span>Название <span class="required" aria-hidden="true">*</span></span>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              maxlength="200"
+              autocomplete="off"
+              placeholder="Например, Интерстеллар"
+              aria-describedby="title-error"
+              required
+            />
+            <span class="field__error" id="title-error" data-error-for="title"></span>
+          </label>
+
+          <label class="field" for="year">
+            <span>Год выпуска</span>
+            <input
+              id="year"
+              name="year"
+              type="number"
+              inputmode="numeric"
+              min="1888"
+              max="2026"
+              step="1"
+              placeholder="2026"
+              aria-describedby="year-error"
+            />
+            <span class="field__error" id="year-error" data-error-for="year"></span>
+          </label>
+
+          <label class="field" for="status">
+            <span>Статус просмотра</span>
+            <select id="status" name="status">
+              <option value="Хочу посмотреть" selected>Хочу посмотреть</option>
+              <option value="Смотрю">Смотрю</option>
+              <option value="Просмотрено">Просмотрено</option>
+            </select>
+            <span class="field__error" data-error-for="status"></span>
+          </label>
+
+          <fieldset class="field field--full genre-field">
+            <legend>Жанры <span class="field__hint">Можно выбрать несколько</span></legend>
+            <div class="genre-picker">
+              <label><input type="checkbox" name="genres" value="Боевик" /><span>Боевик</span></label>
+              <label><input type="checkbox" name="genres" value="Комедия" /><span>Комедия</span></label>
+              <label><input type="checkbox" name="genres" value="Драма" /><span>Драма</span></label>
+              <label><input type="checkbox" name="genres" value="Фантастика" /><span>Фантастика</span></label>
+              <label><input type="checkbox" name="genres" value="Ужасы" /><span>Ужасы</span></label>
+              <label><input type="checkbox" name="genres" value="Триллер" /><span>Триллер</span></label>
+              <label><input type="checkbox" name="genres" value="Приключения" /><span>Приключения</span></label>
+              <label><input type="checkbox" name="genres" value="Детектив" /><span>Детектив</span></label>
+              <label><input type="checkbox" name="genres" value="Мелодрама" /><span>Мелодрама</span></label>
+              <label><input type="checkbox" name="genres" value="Фэнтези" /><span>Фэнтези</span></label>
+              <label><input type="checkbox" name="genres" value="Мультфильм" /><span>Мультфильм</span></label>
+              <label><input type="checkbox" name="genres" value="Документальный" /><span>Документальный</span></label>
+              <label><input type="checkbox" name="genres" value="Криминал" /><span>Криминал</span></label>
+              <label><input type="checkbox" name="genres" value="Военный" /><span>Военный</span></label>
+              <label><input type="checkbox" name="genres" value="Исторический" /><span>Исторический</span></label>
+              <label><input type="checkbox" name="genres" value="Другое" /><span>Другое</span></label>
+            </div>
+            <p class="field__error" data-error-for="genres"></p>
+          </fieldset>
+
+          <label class="field field--full" for="posterUrl">
+            <span>Ссылка на постер</span>
+            <input
+              id="posterUrl"
+              name="posterUrl"
+              type="url"
+              inputmode="url"
+              placeholder="https://example.com/poster.jpg"
+              aria-describedby="poster-error"
+            />
+            <span class="field__error" id="poster-error" data-error-for="posterUrl"></span>
+          </label>
+
+          <label class="field field--full" for="description">
+            <span>Описание</span>
+            <textarea
+              id="description"
+              name="description"
+              rows="4"
+              maxlength="2000"
+              placeholder="Коротко о сюжете или почему хотите посмотреть"
+              aria-describedby="description-error"
+            ></textarea>
+            <span class="field__meta"><span class="field__error" id="description-error" data-error-for="description"></span><span id="description-count">0 / 2000</span></span>
+          </label>
+        </div>
+
+        <p class="form-message" id="form-message" role="alert"></p>
+
+        <div class="dialog__actions">
+          <button class="button button--ghost" id="cancel-form" type="button">Отмена</button>
+          <button class="button button--primary" id="submit-form" type="submit">Добавить в коллекцию</button>
+        </div>
+      </form>
+    </dialog>
+
+    <template id="card-template">
+      <article class="card">
+        <div class="card__poster">
+          <img alt="" loading="lazy" />
+          <span class="card__placeholder" aria-hidden="true">▶</span>
+          <span class="card__type"></span>
+        </div>
+        <div class="card__body">
+          <div class="card__heading">
+            <div>
+              <p class="card__meta"></p>
+              <h3 class="card__title"></h3>
+            </div>
+            <button class="card__edit" type="button" aria-label="Редактировать запись">✎</button>
+          </div>
+          <div class="card__genres"></div>
+          <p class="card__description"></p>
+          <label class="card__status-label">
+            <span>Статус</span>
+            <select class="card__status" aria-label="Изменить статус просмотра">
+              <option value="Хочу посмотреть">Хочу посмотреть</option>
+              <option value="Смотрю">Смотрю</option>
+              <option value="Просмотрено">Просмотрено</option>
+            </select>
+          </label>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>
