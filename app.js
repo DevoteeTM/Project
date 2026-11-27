@@ -63,12 +63,19 @@ const submitButton = document.querySelector("#submit-form");
 const topMoviesList = document.querySelector("#top-movies-list");
 const topMoviesPrevious = document.querySelector("#top-movies-previous");
 const topMoviesNext = document.querySelector("#top-movies-next");
+const deleteDialog = document.querySelector("#delete-dialog");
+const deleteDialogTitle = document.querySelector("#delete-dialog-title");
+const deleteDialogCopy = document.querySelector("#delete-dialog-copy");
+const deleteMessage = document.querySelector("#delete-message");
+const cancelDeleteButton = document.querySelector("#cancel-delete");
+const confirmDeleteButton = document.querySelector("#confirm-delete");
 
 const maximumYear = 2026;
 yearInput.max = String(maximumYear);
 
 let entries = loadEntries();
 let editingId = null;
+let pendingDeleteId = null;
 
 function normalizeGenres(entry) {
   if (Array.isArray(entry.genres)) {
@@ -258,6 +265,7 @@ function renderEntries() {
     const cardDescription = card.querySelector(".card__description");
     const status = card.querySelector(".card__status");
     const editButton = card.querySelector(".card__edit");
+    const deleteButton = card.querySelector(".card__delete");
     const entryGenres = normalizeGenres(entry);
 
     type.textContent = entry.type;
@@ -267,6 +275,7 @@ function renderEntries() {
     status.value = STATUSES.includes(entry.status) ? entry.status : DEFAULT_STATUS;
     status.setAttribute("aria-label", `Статус «${entry.title}»`);
     editButton.setAttribute("aria-label", `Редактировать «${entry.title}»`);
+    deleteButton.setAttribute("aria-label", `Удалить «${entry.title}»`);
 
     if (entryGenres.length > 0) {
       entryGenres.forEach((genre) => genreList.append(createGenreTag(genre)));
@@ -282,6 +291,7 @@ function renderEntries() {
 
     status.addEventListener("change", () => updateStatus(entry.id, status.value, status));
     editButton.addEventListener("click", () => openForm(entry));
+    deleteButton.addEventListener("click", () => openDeleteDialog(entry));
     cards.append(card);
   });
 }
@@ -299,6 +309,40 @@ function updateStatus(id, nextStatus, select) {
     select.value = previousStatus;
     window.alert("Не удалось сохранить новый статус. Проверьте настройки браузера и попробуйте ещё раз.");
   }
+}
+
+function openDeleteDialog(entry) {
+  pendingDeleteId = entry.id;
+  deleteDialogTitle.textContent = `Удалить «${entry.title}»?`;
+  deleteDialogCopy.textContent =
+    "Запись и все сохранённые в ней данные будут удалены из коллекции. Это действие нельзя отменить.";
+  deleteMessage.textContent = "";
+  deleteDialog.showModal();
+  requestAnimationFrame(() => cancelDeleteButton.focus());
+}
+
+function closeDeleteDialog() {
+  if (deleteDialog.open) deleteDialog.close();
+  pendingDeleteId = null;
+  deleteMessage.textContent = "";
+}
+
+function deleteEntry() {
+  const index = entries.findIndex((entry) => entry.id === pendingDeleteId);
+  if (index === -1) {
+    deleteMessage.textContent = "Запись не найдена. Закройте окно и попробуйте ещё раз.";
+    return;
+  }
+
+  const [removedEntry] = entries.splice(index, 1);
+  if (!saveEntries()) {
+    entries.splice(index, 0, removedEntry);
+    deleteMessage.textContent = "Не удалось удалить запись. Проверьте настройки браузера и попробуйте ещё раз.";
+    return;
+  }
+
+  closeDeleteDialog();
+  renderEntries();
 }
 
 function fillForm(entry) {
@@ -507,6 +551,9 @@ document.querySelector("#open-form").addEventListener("click", () => openForm())
 document.querySelector("#empty-add").addEventListener("click", () => openForm());
 document.querySelector("#close-form").addEventListener("click", closeForm);
 document.querySelector("#cancel-form").addEventListener("click", closeForm);
+document.querySelector("#close-delete").addEventListener("click", closeDeleteDialog);
+cancelDeleteButton.addEventListener("click", closeDeleteDialog);
+confirmDeleteButton.addEventListener("click", deleteEntry);
 
 dialog.addEventListener("click", (event) => {
   if (event.target === dialog) closeForm();
@@ -515,6 +562,15 @@ dialog.addEventListener("click", (event) => {
 dialog.addEventListener("cancel", (event) => {
   event.preventDefault();
   closeForm();
+});
+
+deleteDialog.addEventListener("click", (event) => {
+  if (event.target === deleteDialog) closeDeleteDialog();
+});
+
+deleteDialog.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeDeleteDialog();
 });
 
 renderTopMovies();

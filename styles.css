@@ -110,6 +110,16 @@ textarea:focus-visible {
   background: var(--accent-hover);
 }
 
+.button--danger {
+  border-color: rgba(255, 135, 112, 0.45);
+  color: #fff;
+  background: #9f2f25;
+}
+
+.button--danger:hover {
+  background: #bb3b2d;
+}
+
 .button--secondary,
 .button--ghost {
   border-color: var(--line);
@@ -611,6 +621,19 @@ h1 {
   font-weight: 680;
 }
 
+.card__delete {
+  width: 100%;
+  margin-top: 12px;
+  border-color: rgba(255, 135, 112, 0.35);
+  color: var(--danger);
+  background: transparent;
+}
+
+.card__delete:hover {
+  border-color: var(--danger);
+  background: rgba(255, 135, 112, 0.08);
+}
+
 .dialog {
   width: min(680px, calc(100% - 32px));
   max-height: calc(100vh - 32px);
@@ -630,6 +653,15 @@ h1 {
 
 .movie-form {
   padding: 28px;
+}
+
+.delete-confirmation {
+  padding: 28px;
+}
+
+.delete-dialog__copy {
+  color: var(--muted);
+  line-height: 1.55;
 }
 
 .dialog__header,
@@ -903,6 +935,10 @@ h1 {
   }
 
   .movie-form {
+    padding: 22px 18px;
+  }
+
+  .delete-confirmation {
     padding: 22px 18px;
   }
 
