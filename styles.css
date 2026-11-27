@@ -180,6 +180,211 @@ h1 {
   color: var(--muted);
 }
 
+.top-movies {
+  margin-bottom: 72px;
+}
+
+.top-movies__heading {
+  margin-bottom: 12px;
+}
+
+.top-movies__heading .eyebrow {
+  margin-bottom: 8px;
+}
+
+.top-movies__heading h2 {
+  font-size: 1.8rem;
+}
+
+.top-movies__intro {
+  max-width: 560px;
+  margin-bottom: 24px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.top-movies__carousel {
+  position: relative;
+}
+
+.top-movies__rail {
+  display: flex;
+  margin: 0 -8px;
+  padding: 8px;
+  gap: 18px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-behavior: smooth;
+  scroll-snap-type: inline mandatory;
+  scrollbar-color: var(--accent) var(--surface-raised);
+  scrollbar-width: thin;
+  cursor: grab;
+}
+
+.top-movies__rail:active {
+  cursor: grabbing;
+}
+
+.top-movies__rail.is-dragging {
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.top-movies__rail:focus-visible {
+  border-radius: var(--radius-md);
+  outline: 3px solid rgba(255, 90, 54, 0.28);
+  outline-offset: 2px;
+}
+
+.top-movies__rail::-webkit-scrollbar {
+  height: 10px;
+}
+
+.top-movies__rail::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: var(--surface-raised);
+}
+
+.top-movies__rail::-webkit-scrollbar-thumb {
+  border: 2px solid var(--surface-raised);
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.top-movies__arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  color: var(--text);
+  background: rgba(13, 13, 18, 0.9);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  font-size: 2rem;
+  line-height: 1;
+  backdrop-filter: blur(12px);
+  transition: background-color 160ms ease, opacity 160ms ease;
+}
+
+.top-movies__arrow:hover {
+  background: var(--accent);
+}
+
+.top-movies__arrow:focus-visible {
+  outline: 3px solid rgba(255, 90, 54, 0.35);
+  outline-offset: 2px;
+}
+
+.top-movies__arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.top-movies__arrow--previous {
+  left: -20px;
+}
+
+.top-movies__arrow--next {
+  right: -20px;
+}
+
+.top-movie-card {
+  width: clamp(190px, 22vw, 230px);
+  min-width: clamp(190px, 22vw, 230px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+  scroll-snap-align: start;
+}
+
+.top-movie-card__poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--surface-raised);
+}
+
+.top-movie-card__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.top-movie-card__place {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(13, 13, 18, 0.85);
+  font-weight: 800;
+  backdrop-filter: blur(8px);
+}
+
+.top-movie-card__body {
+  display: flex;
+  min-width: 0;
+  min-height: 155px;
+  padding: 16px;
+  flex-direction: column;
+}
+
+.top-movie-card__meta {
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.top-movie-card h3 {
+  display: -webkit-box;
+  min-height: 2.5em;
+  margin-bottom: 14px;
+  overflow: hidden;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.top-movie-card__rating {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.top-movie-card__stars {
+  color: #ffca5a;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.top-movie-card__score {
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: #ffc3b5;
+  background: rgba(255, 90, 54, 0.1);
+  font-size: 0.74rem;
+  font-weight: 750;
+}
+
 .collection-toolbar {
   display: flex;
   margin: -4px 0 24px;
@@ -676,6 +881,24 @@ h1 {
     align-items: flex-start;
     flex-direction: column;
     gap: 7px;
+  }
+
+  .top-movies {
+    margin-bottom: 56px;
+  }
+
+  .top-movie-card {
+    width: min(72vw, 230px);
+    min-width: min(72vw, 230px);
+  }
+
+  .top-movies__rail {
+    margin-right: -16px;
+    padding-right: 24px;
+  }
+
+  .top-movies__arrow {
+    display: none;
   }
 
   .collection-toolbar {

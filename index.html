@@ -32,6 +32,45 @@
         </p>
       </section>
 
+      <section class="top-movies" aria-labelledby="top-movies-title">
+        <div class="section-heading top-movies__heading">
+          <div>
+            <p class="eyebrow">Выбор зрителей</p>
+            <h2 id="top-movies-title">Топ-20 фильмов</h2>
+          </div>
+          <p>20 фильмов</p>
+        </div>
+
+        <p class="top-movies__intro">
+          Листайте подборку вбок, перетаскивайте её мышью или используйте стрелки.
+        </p>
+
+        <div class="top-movies__carousel">
+          <button
+            class="top-movies__arrow top-movies__arrow--previous"
+            id="top-movies-previous"
+            type="button"
+            aria-label="Показать предыдущие фильмы"
+          >
+            ‹
+          </button>
+          <div
+            class="top-movies__rail"
+            id="top-movies-list"
+            tabindex="0"
+            aria-label="Топ-20 фильмов. Горизонтальный список"
+          ></div>
+          <button
+            class="top-movies__arrow top-movies__arrow--next"
+            id="top-movies-next"
+            type="button"
+            aria-label="Показать следующие фильмы"
+          >
+            ›
+          </button>
+        </div>
+      </section>
+
       <section aria-labelledby="collection-title">
         <div class="section-heading">
           <h2 id="collection-title">Моя коллекция</h2>

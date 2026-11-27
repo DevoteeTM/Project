@@ -20,6 +20,28 @@ const GENRES = [
   "Другое",
 ];
 const DEFAULT_STATUS = STATUSES[0];
+const TOP_MOVIES = [
+  { title: "Побег из Шоушенка", year: 1994, genre: "Драма", score: "9,3", rating: 5, poster: "01-shawshank-redemption.jpg" },
+  { title: "Крёстный отец", year: 1972, genre: "Криминал", score: "9,2", rating: 5, poster: "02-the-godfather.jpg" },
+  { title: "Тёмный рыцарь", year: 2008, genre: "Боевик", score: "9,1", rating: 5, poster: "03-the-dark-knight.jpg" },
+  { title: "Властелин колец: Возвращение короля", year: 2003, genre: "Фэнтези", score: "9,0", rating: 5, poster: "04-return-of-the-king.jpg" },
+  { title: "Список Шиндлера", year: 1993, genre: "Драма", score: "9,0", rating: 5, poster: "05-schindlers-list.jpg" },
+  { title: "Крёстный отец 2", year: 1974, genre: "Криминал", score: "9,0", rating: 5, poster: "06-the-godfather-part-ii.jpg" },
+  { title: "12 разгневанных мужчин", year: 1957, genre: "Драма", score: "9,0", rating: 5, poster: "07-12-angry-men.jpg" },
+  { title: "Властелин колец: Братство Кольца", year: 2001, genre: "Фэнтези", score: "8,9", rating: 4, poster: "08-fellowship-of-the-ring.jpg" },
+  { title: "Начало", year: 2010, genre: "Фантастика", score: "8,8", rating: 4, poster: "09-inception.jpg" },
+  { title: "Бойцовский клуб", year: 1999, genre: "Драма", score: "8,8", rating: 4, poster: "10-fight-club.jpg" },
+  { title: "Форрест Гамп", year: 1994, genre: "Драма", score: "8,8", rating: 4, poster: "11-forrest-gump.jpg" },
+  { title: "Криминальное чтиво", year: 1994, genre: "Криминал", score: "8,8", rating: 4, poster: "12-pulp-fiction.jpg" },
+  { title: "Властелин колец: Две крепости", year: 2002, genre: "Фэнтези", score: "8,8", rating: 4, poster: "13-the-two-towers.jpg" },
+  { title: "Хороший, плохой, злой", year: 1966, genre: "Вестерн", score: "8,8", rating: 4, poster: "14-good-bad-ugly.jpg" },
+  { title: "Интерстеллар", year: 2014, genre: "Фантастика", score: "8,7", rating: 4, poster: "15-interstellar.jpg" },
+  { title: "Матрица", year: 1999, genre: "Фантастика", score: "8,7", rating: 4, poster: "16-the-matrix.jpg" },
+  { title: "Звёздные войны: Империя наносит ответный удар", year: 1980, genre: "Фантастика", score: "8,7", rating: 4, poster: "17-empire-strikes-back.jpg" },
+  { title: "Чужой", year: 1979, genre: "Ужасы", score: "8,4", rating: 4, poster: "18-alien.jpg" },
+  { title: "Бегущий по лезвию", year: 1982, genre: "Фантастика", score: "8,1", rating: 4, poster: "19-blade-runner.jpg" },
+  { title: "Челюсти", year: 1975, genre: "Триллер", score: "8,1", rating: 4, poster: "20-jaws.jpg" },
+];
 
 const dialog = document.querySelector("#add-dialog");
 const form = document.querySelector("#movie-form");
@@ -38,6 +60,9 @@ const genreFilter = document.querySelector("#genre-filter");
 const dialogEyebrow = document.querySelector("#dialog-eyebrow");
 const dialogTitle = document.querySelector("#dialog-title");
 const submitButton = document.querySelector("#submit-form");
+const topMoviesList = document.querySelector("#top-movies-list");
+const topMoviesPrevious = document.querySelector("#top-movies-previous");
+const topMoviesNext = document.querySelector("#top-movies-next");
 
 const maximumYear = 2026;
 yearInput.max = String(maximumYear);
@@ -107,6 +132,100 @@ function createGenreTag(genre, isEmpty = false) {
   tag.className = `genre-tag${isEmpty ? " genre-tag--empty" : ""}`;
   tag.textContent = genre;
   return tag;
+}
+
+function renderTopMovies() {
+  TOP_MOVIES.forEach((movie, index) => {
+    const card = document.createElement("article");
+    card.className = "top-movie-card";
+
+    const poster = document.createElement("div");
+    poster.className = "top-movie-card__poster";
+
+    const image = document.createElement("img");
+    image.src = `specs/posters/${movie.poster}`;
+    image.alt = `Постер фильма «${movie.title}»`;
+    image.loading = index < 4 ? "eager" : "lazy";
+    image.draggable = false;
+
+    const place = document.createElement("span");
+    place.className = "top-movie-card__place";
+    place.setAttribute("aria-label", `Место в рейтинге: ${index + 1}`);
+    place.textContent = String(index + 1);
+
+    const body = document.createElement("div");
+    body.className = "top-movie-card__body";
+
+    const meta = document.createElement("p");
+    meta.className = "top-movie-card__meta";
+    meta.textContent = `${movie.year} · ${movie.genre}`;
+
+    const title = document.createElement("h3");
+    title.textContent = movie.title;
+
+    const rating = document.createElement("div");
+    rating.className = "top-movie-card__rating";
+
+    const stars = document.createElement("span");
+    stars.className = "top-movie-card__stars";
+    stars.setAttribute("aria-label", `Оценка: ${movie.rating} из 5 звёзд`);
+    stars.textContent = "★".repeat(movie.rating);
+
+    const score = document.createElement("span");
+    score.className = "top-movie-card__score";
+    score.textContent = `${movie.score} / 10`;
+
+    rating.append(stars, score);
+    body.append(meta, title, rating);
+    poster.append(image, place);
+    card.append(poster, body);
+    topMoviesList.append(card);
+  });
+}
+
+function updateTopMovieArrows() {
+  const maximumScroll = topMoviesList.scrollWidth - topMoviesList.clientWidth;
+  topMoviesPrevious.disabled = topMoviesList.scrollLeft <= 1;
+  topMoviesNext.disabled = topMoviesList.scrollLeft >= maximumScroll - 1;
+}
+
+function scrollTopMovies(direction) {
+  topMoviesList.scrollBy({
+    left: direction * Math.max(topMoviesList.clientWidth * 0.8, 220),
+    behavior: "smooth",
+  });
+}
+
+function enableTopMoviesDragging() {
+  let pointerStart = 0;
+  let scrollStart = 0;
+  let dragging = false;
+
+  topMoviesList.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "mouse" || event.button !== 0) return;
+    dragging = true;
+    pointerStart = event.clientX;
+    scrollStart = topMoviesList.scrollLeft;
+    topMoviesList.classList.add("is-dragging");
+    topMoviesList.setPointerCapture(event.pointerId);
+  });
+
+  topMoviesList.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    topMoviesList.scrollLeft = scrollStart - (event.clientX - pointerStart);
+  });
+
+  const stopDragging = (event) => {
+    if (!dragging) return;
+    dragging = false;
+    topMoviesList.classList.remove("is-dragging");
+    if (topMoviesList.hasPointerCapture(event.pointerId)) {
+      topMoviesList.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  topMoviesList.addEventListener("pointerup", stopDragging);
+  topMoviesList.addEventListener("pointercancel", stopDragging);
 }
 
 function renderEntries() {
@@ -368,6 +487,27 @@ form.addEventListener("input", (event) => {
 });
 
 genreFilter.addEventListener("change", renderEntries);
+topMoviesPrevious.addEventListener("click", () => scrollTopMovies(-1));
+topMoviesNext.addEventListener("click", () => scrollTopMovies(1));
+topMoviesList.addEventListener("scroll", updateTopMovieArrows, { passive: true });
+topMoviesList.addEventListener(
+  "wheel",
+  (event) => {
+    if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+    event.preventDefault();
+    topMoviesList.scrollLeft += event.deltaY;
+  },
+  { passive: false },
+);
+topMoviesList.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    scrollTopMovies(-1);
+  } else if (event.key === "ArrowRight") {
+    event.preventDefault();
+    scrollTopMovies(1);
+  }
+});
 document.querySelector("#open-form").addEventListener("click", () => openForm());
 document.querySelector("#empty-add").addEventListener("click", () => openForm());
 document.querySelector("#close-form").addEventListener("click", closeForm);
@@ -382,4 +522,7 @@ dialog.addEventListener("cancel", (event) => {
   closeForm();
 });
 
+renderTopMovies();
+enableTopMoviesDragging();
+updateTopMovieArrows();
 renderEntries();
