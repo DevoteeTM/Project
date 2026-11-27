@@ -379,10 +379,10 @@ h1 {
   font-weight: 750;
 }
 
-.top-movie-card__trailer-link {
+.top-movie-card__trailer-link,
+.top-movie-card__watch-link {
   display: inline-flex;
   min-height: 44px;
-  margin-top: 14px;
   padding: 10px 12px;
   align-items: center;
   justify-content: center;
@@ -397,12 +397,22 @@ h1 {
   transition: border-color 160ms ease, background 160ms ease;
 }
 
-.top-movie-card__trailer-link:hover {
+.top-movie-card__trailer-link {
+  margin-top: 14px;
+}
+
+.top-movie-card__watch-link {
+  margin-top: 8px;
+}
+
+.top-movie-card__trailer-link:hover,
+.top-movie-card__watch-link:hover {
   border-color: rgba(255, 90, 54, 0.65);
   background: rgba(255, 90, 54, 0.1);
 }
 
-.top-movie-card__trailer-link:focus-visible {
+.top-movie-card__trailer-link:focus-visible,
+.top-movie-card__watch-link:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
 }

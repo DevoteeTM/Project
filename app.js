@@ -146,6 +146,11 @@ function createTrailerSearchUrl(movie) {
   return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
 }
 
+function createWatchSearchUrl(movie) {
+  const query = `${movie.title} ${movie.year}`;
+  return `https://www.kinopoisk.ru/index.php?kp_query=${encodeURIComponent(query)}`;
+}
+
 function renderTopMovies() {
   TOP_MOVIES.forEach((movie, index) => {
     const card = document.createElement("article");
@@ -193,8 +198,19 @@ function renderTopMovies() {
     );
     trailerLink.textContent = "Смотреть трейлер";
 
+    const watchLink = document.createElement("a");
+    watchLink.className = "top-movie-card__watch-link";
+    watchLink.href = createWatchSearchUrl(movie);
+    watchLink.target = "_blank";
+    watchLink.rel = "noopener noreferrer";
+    watchLink.setAttribute(
+      "aria-label",
+      `Найти фильм «${movie.title}» (${movie.year}) для легального просмотра на Кинопоиске`,
+    );
+    watchLink.textContent = "Смотреть фильм";
+
     rating.append(stars, score);
-    body.append(meta, title, rating, trailerLink);
+    body.append(meta, title, rating, trailerLink, watchLink);
     poster.append(image);
     card.append(poster, body);
     topMoviesList.append(card);
