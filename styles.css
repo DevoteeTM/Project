@@ -319,22 +319,6 @@ h1 {
   object-fit: cover;
 }
 
-.top-movie-card__place {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  display: grid;
-  width: 36px;
-  height: 36px;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 50%;
-  color: #fff;
-  background: rgba(13, 13, 18, 0.85);
-  font-weight: 800;
-  backdrop-filter: blur(8px);
-}
-
 .top-movie-card__body {
   display: flex;
   min-width: 0;

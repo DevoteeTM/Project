@@ -148,11 +148,6 @@ function renderTopMovies() {
     image.loading = index < 4 ? "eager" : "lazy";
     image.draggable = false;
 
-    const place = document.createElement("span");
-    place.className = "top-movie-card__place";
-    place.setAttribute("aria-label", `Место в рейтинге: ${index + 1}`);
-    place.textContent = String(index + 1);
-
     const body = document.createElement("div");
     body.className = "top-movie-card__body";
 
@@ -177,7 +172,7 @@ function renderTopMovies() {
 
     rating.append(stars, score);
     body.append(meta, title, rating);
-    poster.append(image, place);
+    poster.append(image);
     card.append(poster, body);
     topMoviesList.append(card);
   });
