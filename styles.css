@@ -379,6 +379,34 @@ h1 {
   font-weight: 750;
 }
 
+.top-movie-card__trailer-link {
+  display: inline-flex;
+  min-height: 44px;
+  margin-top: 14px;
+  padding: 10px 12px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem;
+  font-weight: 750;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.top-movie-card__trailer-link:hover {
+  border-color: rgba(255, 90, 54, 0.65);
+  background: rgba(255, 90, 54, 0.1);
+}
+
+.top-movie-card__trailer-link:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
 .collection-toolbar {
   display: flex;
   margin: -4px 0 24px;

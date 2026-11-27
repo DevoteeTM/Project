@@ -141,6 +141,11 @@ function createGenreTag(genre, isEmpty = false) {
   return tag;
 }
 
+function createTrailerSearchUrl(movie) {
+  const query = `${movie.title} ${movie.year} официальный трейлер`;
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+}
+
 function renderTopMovies() {
   TOP_MOVIES.forEach((movie, index) => {
     const card = document.createElement("article");
@@ -177,8 +182,19 @@ function renderTopMovies() {
     score.className = "top-movie-card__score";
     score.textContent = `${movie.score} / 10`;
 
+    const trailerLink = document.createElement("a");
+    trailerLink.className = "top-movie-card__trailer-link";
+    trailerLink.href = createTrailerSearchUrl(movie);
+    trailerLink.target = "_blank";
+    trailerLink.rel = "noopener noreferrer";
+    trailerLink.setAttribute(
+      "aria-label",
+      `Смотреть официальный трейлер фильма «${movie.title}» (${movie.year}) на YouTube`,
+    );
+    trailerLink.textContent = "Смотреть трейлер";
+
     rating.append(stars, score);
-    body.append(meta, title, rating);
+    body.append(meta, title, rating, trailerLink);
     poster.append(image);
     card.append(poster, body);
     topMoviesList.append(card);
