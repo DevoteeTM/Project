@@ -12,11 +12,18 @@
     <script src="app.js" defer></script>
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="#" aria-label="Фильм на потом — на главную">
+    <header class="site-header" id="site-header">
+      <a class="brand" href="#home" aria-label="Фильм на потом — на главную">
         <span class="brand__mark" aria-hidden="true">▶</span>
         <span>Фильм на потом</span>
       </a>
+
+      <nav class="site-nav" aria-label="Основная навигация">
+        <a href="#home">Главная</a>
+        <a href="#catalog">Каталог</a>
+        <a href="#top-20">ТОП-20</a>
+      </nav>
+
       <button class="button button--primary" id="open-form" type="button">
         <span aria-hidden="true">＋</span>
         Добавить
@@ -24,15 +31,37 @@
     </header>
 
     <main class="page-shell">
-      <section class="hero" aria-labelledby="page-title">
-        <p class="eyebrow">Личная коллекция</p>
-        <h1 id="page-title">Фильм на потом</h1>
-        <p class="hero__copy">
-          Сохраняйте фильмы и сериалы, которые не хочется потерять.
-        </p>
+      <section class="hero" id="home" aria-labelledby="page-title">
+        <div class="hero__media" aria-hidden="true">
+          <img id="hero-backdrop" alt="" />
+        </div>
+        <div class="hero__content">
+          <p class="eyebrow">Выбор недели</p>
+          <h1 id="page-title"></h1>
+          <div class="hero__meta" aria-label="Информация о рекомендуемом фильме">
+            <span id="hero-score"></span>
+            <span id="hero-year"></span>
+            <span id="hero-genre"></span>
+            <span id="hero-duration"></span>
+          </div>
+          <p class="hero__copy" id="hero-description"></p>
+          <div class="hero__actions">
+            <a class="button button--primary" id="hero-watch" target="_blank" rel="noopener noreferrer">
+              <span aria-hidden="true">▶</span>
+              Смотреть фильм
+            </a>
+            <a class="button button--secondary" id="hero-trailer" target="_blank" rel="noopener noreferrer">
+              Смотреть трейлер
+            </a>
+            <button class="button button--ghost" id="hero-add" type="button">
+              <span aria-hidden="true">＋</span>
+              В коллекцию
+            </button>
+          </div>
+        </div>
       </section>
 
-      <section class="top-movies" aria-labelledby="top-movies-title">
+      <section class="top-movies" id="top-20" aria-labelledby="top-movies-title">
         <div class="section-heading top-movies__heading">
           <div>
             <p class="eyebrow">Выбор зрителей</p>
@@ -71,7 +100,7 @@
         </div>
       </section>
 
-      <section aria-labelledby="collection-title">
+      <section id="catalog" aria-labelledby="collection-title">
         <div class="section-heading">
           <h2 id="collection-title">Моя коллекция</h2>
           <p id="items-count" aria-live="polite">0 записей</p>

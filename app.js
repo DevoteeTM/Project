@@ -42,7 +42,14 @@ const TOP_MOVIES = [
   { title: "Бегущий по лезвию", year: 1982, genre: "Фантастика", score: "8,1", rating: 4, poster: "19-blade-runner.jpg" },
   { title: "Челюсти", year: 1975, genre: "Триллер", score: "8,1", rating: 4, poster: "20-jaws.jpg" },
 ];
+const FEATURED_MOVIE = {
+  ...TOP_MOVIES.find((movie) => movie.title === "Интерстеллар"),
+  duration: "2 ч 49 мин",
+  description:
+    "Когда Земля становится непригодной для жизни, группа исследователей отправляется сквозь космос на поиски нового дома для человечества.",
+};
 
+const siteHeader = document.querySelector("#site-header");
 const dialog = document.querySelector("#add-dialog");
 const form = document.querySelector("#movie-form");
 const cards = document.querySelector("#cards");
@@ -69,6 +76,16 @@ const deleteDialogCopy = document.querySelector("#delete-dialog-copy");
 const deleteMessage = document.querySelector("#delete-message");
 const cancelDeleteButton = document.querySelector("#cancel-delete");
 const confirmDeleteButton = document.querySelector("#confirm-delete");
+const heroBackdrop = document.querySelector("#hero-backdrop");
+const heroTitle = document.querySelector("#page-title");
+const heroScore = document.querySelector("#hero-score");
+const heroYear = document.querySelector("#hero-year");
+const heroGenre = document.querySelector("#hero-genre");
+const heroDuration = document.querySelector("#hero-duration");
+const heroDescription = document.querySelector("#hero-description");
+const heroWatchLink = document.querySelector("#hero-watch");
+const heroTrailerLink = document.querySelector("#hero-trailer");
+const heroAddButton = document.querySelector("#hero-add");
 
 const maximumYear = 2026;
 yearInput.max = String(maximumYear);
@@ -149,6 +166,30 @@ function createTrailerSearchUrl(movie) {
 function createWatchSearchUrl(movie) {
   const query = `${movie.title} ${movie.year}`;
   return `https://www.kinopoisk.ru/index.php?kp_query=${encodeURIComponent(query)}`;
+}
+
+function renderHero() {
+  heroBackdrop.src = `specs/posters/${FEATURED_MOVIE.poster}`;
+  heroTitle.textContent = FEATURED_MOVIE.title;
+  heroScore.textContent = `${FEATURED_MOVIE.score} / 10`;
+  heroYear.textContent = FEATURED_MOVIE.year;
+  heroGenre.textContent = FEATURED_MOVIE.genre;
+  heroDuration.textContent = FEATURED_MOVIE.duration;
+  heroDescription.textContent = FEATURED_MOVIE.description;
+  heroWatchLink.href = createWatchSearchUrl(FEATURED_MOVIE);
+  heroTrailerLink.href = createTrailerSearchUrl(FEATURED_MOVIE);
+  heroWatchLink.setAttribute(
+    "aria-label",
+    `Найти фильм «${FEATURED_MOVIE.title}» для легального просмотра на Кинопоиске`,
+  );
+  heroTrailerLink.setAttribute(
+    "aria-label",
+    `Смотреть официальный трейлер фильма «${FEATURED_MOVIE.title}» на YouTube`,
+  );
+}
+
+function updateHeaderAppearance() {
+  siteHeader.classList.toggle("is-scrolled", window.scrollY > 24);
 }
 
 function renderTopMovies() {
@@ -558,6 +599,7 @@ form.addEventListener("input", (event) => {
 });
 
 genreFilter.addEventListener("change", renderEntries);
+window.addEventListener("scroll", updateHeaderAppearance, { passive: true });
 topMoviesPrevious.addEventListener("click", () => scrollTopMovies(-1));
 topMoviesNext.addEventListener("click", () => scrollTopMovies(1));
 topMoviesList.addEventListener("scroll", updateTopMovieArrows, { passive: true });
@@ -580,6 +622,7 @@ topMoviesList.addEventListener("keydown", (event) => {
   }
 });
 document.querySelector("#open-form").addEventListener("click", () => openForm());
+heroAddButton.addEventListener("click", () => openForm());
 document.querySelector("#empty-add").addEventListener("click", () => openForm());
 document.querySelector("#close-form").addEventListener("click", closeForm);
 document.querySelector("#cancel-form").addEventListener("click", closeForm);
@@ -605,6 +648,8 @@ deleteDialog.addEventListener("cancel", (event) => {
   closeDeleteDialog();
 });
 
+renderHero();
+updateHeaderAppearance();
 renderTopMovies();
 enableTopMoviesDragging();
 updateTopMovieArrows();
